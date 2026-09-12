@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>یه سورپرایز کوچیک برای ریتا 🎂</title>
+<style>
+*{box-sizing:border-box}
+html,body{
+  margin:0;
+  min-height:100%;
+  width:100%;
+  font-family:Tahoma,"Segoe UI",sans-serif;
+  -webkit-text-size-adjust:100%;
+}
+body{
+  background:#090810;
+  color:#fff;
+  overflow-x:hidden;
+  overscroll-behavior-x:none;
+}
+button{
+  font-family:inherit;
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+}
+.app{
+  width:100%;
+  max-width:520px;
+  min-height:100vh;
+  min-height:100dvh;
+  margin:auto;
+  padding:14px 12px calc(24px + env(safe-area-inset-bottom));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+}
+.screen{
+  width:100%;
+  max-width:100%;
+  display:none;
+  text-align:center;
+  animation:up .45s ease;
+}
+.screen.active{display:block}
+@keyframes up{
+  from{opacity:0;transform:translate3d(0,12px,0)}
+  to{opacity:1;transform:none}
+}
+h1{
+  font-size:clamp(22px,6vw,27px);
+  line-height:1.65;
+  margin:8px 0 10px;
+}
+h2{
+  font-size:clamp(19px,5.5vw,23px);
+  line-height:1.7;
+  margin:8px 0;
+}
+p{
+  font-size:clamp(14px,4.2vw,16px);
+  line-height:1.9;
+  color:#eee7f1;
+  margin:8px 0 14px;
+}
+.btn{
+  min-height:48px;
+  border:0;
+  border-radius:999px;
+  padding:12px 22px;
+  max-width:100%;
+  background:linear-gradient(135deg,#ff8fae,#ff5f86);
+  color:#fff;
+  font-weight:700;
+  font-size:16px;
+  cursor:pointer;
+  box-shadow:0 8px 24px #ff5f8640;
+  margin:6px 4px;
+}
+.btn:active{transform:scale(.97)}
+.muted{color:#aaa1b1;font-size:13px}
+.dark-room{
+  position:relative;
+  min-height:min(500px,72dvh);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:28px 16px;
+  background:radial-gradient(circle at 50% 55%,#15111d 0,#08070d 62%,#030308 100%);
+  border-radius:26px;
+  overflow:hidden;
+  box-shadow:inset 0 0 70px #000;
+}
+.whisper{font-size:clamp(18px,5vw,20px);color:#e8dfe9;animation:pulse 2.2s infinite}
+.hint{position:absolute;bottom:20px;color:#77717e;font-size:11px}
+@keyframes pulse{50%{opacity:.35}}
+.party-room{
+  min-height:min(570px,82dvh);
+  border-radius:26px;
+  position:relative;
+  overflow:hidden;
+  padding:28px 10px 24px;
+  background:radial-gradient(circle at 50% 45%,#704b73 0,#251b32 48%,#100c18 100%);
+  box-shadow:0 14px 45px #0008;
+}
+.party-room:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg,#ff9ab326,#fff0 40%,#ff9ab31f);
+  pointer-events:none;
+}
+.curtain{
+  position:absolute;
+  top:-30px;
+  width:82px;
+  height:150px;
+  background:linear-gradient(90deg,#3a193f,#9c4778,#3a193f);
+  opacity:.9;
+}
+.curtain.left{left:-42px;transform:rotate(8deg)}
+.curtain.right{right:-42px;transform:rotate(-8deg)}
+.balloons{position:absolute;inset:0;pointer-events:none}
+.balloon{
+  position:absolute;
+  font-size:clamp(38px,12vw,54px);
+  filter:drop-shadow(0 6px 7px #0005);
+}
+.b1{left:5%;top:16%}.b2{right:5%;top:23%}.b3{left:9%;top:52%}.b4{right:9%;top:49%}
+.birthday-title{
+  position:relative;
+  margin-top:12px;
+  font-size:clamp(23px,7vw,28px);
+  font-weight:900;
+  text-shadow:0 5px 20px #0008;
+}
+.sub{position:relative;color:#f7dce8;margin-bottom:8px}
+.table{position:absolute;left:6%;right:6%;bottom:48px;height:12px;border-radius:50%;background:#160f1b;box-shadow:0 -3px 0 #6d405f}
+.cake{
+  position:relative;
+  width:min(220px,68vw);
+  height:min(190px,58vw);
+  margin:24px auto 12px;
+  filter:drop-shadow(0 14px 16px #0008);
+}
+.cake-bottom{
+  position:absolute;
+  left:7%;
+  right:7%;
+  bottom:5px;
+  height:54%;
+  border-radius:18px 18px 25px 25px;
+  background:linear-gradient(#ff9ab6,#c94672);
+}
+.cake-top{
+  position:absolute;
+  left:0;
+  right:0;
+  top:34%;
+  height:33%;
+  border-radius:50%;
+  background:#ffd8e2;
+  box-shadow:0 8px 0 #e85c83;
+}
+.cream{
+  position:absolute;
+  left:5%;
+  right:5%;
+  top:25%;
+  height:19%;
+  border-radius:50%;
+  background:#fff0f5;
+}
+.candle{
+  position:absolute;
+  top:5%;
+  width:11px;
+  height:29%;
+  border-radius:5px;
+  background:linear-gradient(90deg,#ffe0a9,#fff);
+  z-index:4;
+}
+.c1{left:34%}.c2{left:47%}.c3{left:60%}
+.flame{
+  position:absolute;
+  top:-22px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:24px;
+  animation:flicker .7s infinite alternate;
+}
+.wick{position:absolute;top:-5px;left:50%;width:2px;height:8px;background:#333}
+@keyframes flicker{to{transform:translateX(-50%) scale(1.18) rotate(3deg)}}
+.party-spark{position:absolute;font-size:21px;animation:twinkle 1.2s infinite alternate}
+.s1{left:15%;top:35%}.s2{right:16%;top:38%}.s3{left:20%;top:69%}.s4{right:19%;top:67%}
+@keyframes twinkle{to{opacity:.25;transform:scale(.65) rotate(20deg)}}
+.confetti{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:30;
+}
+.piece{
+  position:absolute;
+  top:-35px;
+  font-size:20px;
+  animation:fall 3.4s linear forwards;
+  will-change:transform,opacity;
+}
+@keyframes fall{
+  to{transform:translate3d(0,110vh,0) rotate(720deg);opacity:0}
+}
+.gift{
+  width:min(190px,58vw);
+  height:min(160px,49vw);
+  margin:20px auto 18px;
+  position:relative;
+  filter:drop-shadow(0 16px 20px #0007);
+  cursor:pointer;
+  touch-action:manipulation;
+}
+.gift .box{position:absolute;left:7%;right:7%;bottom:0;height:69%;background:linear-gradient(135deg,#ff9ab3,#e94873);border-radius:9px 9px 14px 14px}
+.gift .lid{position:absolute;left:0;right:0;top:16%;height:28%;background:linear-gradient(135deg,#ffb2c6,#ef5d83);border-radius:9px;z-index:2}
+.gift .ribbon-v{position:absolute;width:14%;top:16%;bottom:0;left:43%;background:#ffd1dd;z-index:3}
+.gift .bow{position:absolute;top:0;left:33%;width:34%;height:28%;z-index:4}
+.bow:before,.bow:after{content:"";position:absolute;width:63%;height:62%;border:8px solid #ffd1dd;border-radius:50%;top:4px}
+.bow:before{right:44%;transform:rotate(25deg)}.bow:after{left:44%;transform:rotate(-25deg)}
+.lock{font-size:clamp(48px,15vw,58px);margin:8px}
+.card{
+  background:#fff1f6;
+  color:#38263d;
+  border-radius:22px;
+  padding:20px 15px;
+  box-shadow:0 15px 38px #0005;
+  margin:12px 0;
+}
+.card p{color:#4d3b51}
+.choice{
+  display:block;
+  width:100%;
+  min-height:48px;
+  border:2px solid #f2b5c7;
+  background:#fff8fb;
+  color:#503744;
+  border-radius:16px;
+  padding:12px 10px;
+  margin:8px 0;
+  font-size:15px;
+  cursor:pointer;
+  touch-action:manipulation;
+}
+.flower{font-size:clamp(78px,25vw,100px);animation:bloom 1.2s ease infinite alternate}
+@keyframes bloom{to{transform:scale(1.08) rotate(2deg)}}
+.portrait{
+  display:block;
+  width:min(78vw,300px);
+  height:min(330px,76vw);
+  min-height:260px;
+  margin:0 auto 12px;
+  object-fit:cover;
+  object-position:center;
+  border-radius:26px;
+  border:4px solid #ffd4df;
+  box-shadow:0 16px 45px #0008;
+}
+.note{
+  background:#fff0d9;
+  color:#4d3541;
+  border-radius:20px;
+  padding:20px 16px;
+  line-height:2;
+  text-align:right;
+  box-shadow:0 12px 35px #0006;
+}
+.note h2{text-align:center;color:#c63f67}
+.note p{color:#000 !important;font-weight:500}
+.progress{display:flex;gap:6px;justify-content:center;margin:3px 0 16px}
+.dot{width:8px;height:8px;border-radius:50%;background:#65516e}
+.dot.on{background:#ff789b;box-shadow:0 0 10px #ff789b}
+.date{font-size:clamp(23px,7vw,28px);color:#ff9db7;font-weight:800;margin:14px}
+
+@media(max-width:360px){
+  .app{padding-left:8px;padding-right:8px}
+  .dark-room{min-height:68dvh;border-radius:22px;padding:22px 12px}
+  .party-room{min-height:80dvh;border-radius:22px;padding-left:7px;padding-right:7px}
+  .btn{width:100%;margin:5px 0}
+  .cake{width:200px;height:175px}
+  .portrait{height:270px;min-height:240px}
+  .card,.note{padding:17px 13px}
+}
+
+@media(min-width:361px) and (max-width:430px){
+  .app{padding-left:10px;padding-right:10px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    scroll-behavior:auto!important;
+  }
+}
+</style>
+</head>
+<body>
+<div class="app"><div id="confetti" class="confetti"></div>
+
+<!-- آهنگ اصلی - از اسلاید ۲ (جشن تولد) پخش میشه -->
+<audio id="myAudio" src="birthday-ceremony.mp3" preload="auto" loop></audio>
+
+<section class="screen active" id="s0">
+  <div class="dark-room">
+    <div class="whisper">چشاتو ببند... 🤫</div>
+    <div class="hint">چند ثانیه صبر کن...</div>
+  </div>
+</section>
+
+<section class="screen" id="s1">
+  <div class="dark-room" style="background:#05050a">
+    <div style="font-size:24px;opacity:.9">آماده‌ای؟ ✨</div>
+    <p>فقط یه لحظه...</p>
+    <button class="btn" onclick="startParty()">سوپرایز 🎉</button>
+  </div>
+</section>
+
+<section class="screen" id="s2">
+  <div class="party-room">
+    <div class="curtain left"></div><div class="curtain right"></div>
+    <div class="balloons">
+      <span class="balloon b1">🎈</span><span class="balloon b2">🎈</span>
+      <span class="balloon b3">🎈</span><span class="balloon b4">🎈</span>
+    </div>
+    <span class="party-spark s1">✨</span><span class="party-spark s2">✨</span>
+    <span class="party-spark s3">⭐</span><span class="party-spark s4">✨</span>
+    <div class="birthday-title">تولدت مبارک الینا! 🎉</div>
+    <div class="sub">31 شهریور 🎂</div>
+    <div class="cake">
+      <div class="candle c1"><div class="wick"></div><div class="flame">🔥</div></div>
+      <div class="candle c2"><div class="wick"></div><div class="flame">🔥</div></div>
+      <div class="candle c3"><div class="wick"></div><div class="flame">🔥</div></div>
+      <div class="cream"></div><div class="cake-top"></div><div class="cake-bottom"></div>
+    </div>
+    <div class="table"></div>
+    <button class="btn" onclick="blowCandles()">شمع‌ها رو فوت کن 🕯️</button>
+  </div>
+</section>
+
+<section class="screen" id="s3">
+  <div class="dark-room">
+    <div style="font-size:70px">🌟</div>
+    <h1>تولدت مبارک خواهر گلم ❤️</h1>
+    <p>امیدوارم سال جدید زندگیت پر از خنده، آرامش و اتفاقای خوب باشه.</p>
+    <button class="btn" onclick="next(4)">حالا کادوت رو ببین 🎁</button>
+  </div>
+</section>
+
+<section class="screen" id="s4">
+  <div class="gift" onclick="next(5)"><div class="bow"></div><div class="lid"></div><div class="box"></div><div class="ribbon-v"></div></div>
+  <h1>یه کادوی کوچیک برات دارم... 🎁</h1>
+  <p>فیزیکی نیست، ولی امیدوارم بتونه یه لبخند کوچیک روی صورتت بیاره.</p>
+  <button class="btn" onclick="next(5)">کادو رو باز کن ✨</button>
+</section>
+
+<section class="screen" id="s5">
+  <div class="lock">🔐</div><h1>کادو یه کوچولو قفل شده!</h1>
+  <p>فقط چند مرحله کوچیک مونده تا به کادوی اصلی برسی.</p>
+  <button class="btn" onclick="next(6)">بزن بریم 💗</button>
+</section>
+
+<section class="screen" id="s6">
+  <div class="progress"><i class="dot on"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i></div>
+  <div class="card">
+    <h2>یه سؤال کوچیک... 🌷</h2><p>به نظرت یه تولد خوب بیشتر با چی قشنگ میشه؟</p>
+    <button class="choice" onclick="next(7)">خنده‌های زیاد 😊</button>
+    <button class="choice" onclick="next(7)">آدم‌های دوست‌داشتنی ❤️</button>
+    <button class="choice" onclick="next(7)">یه عالمه اتفاق خوب ✨</button>
+    <button class="choice" onclick="next(7)">همه‌شون 😌</button>
+  </div>
+</section>
+
+<section class="screen" id="s7">
+  <div class="flower">🌷</div><h1>پس این گل برای توئه 🌷</h1>
+  <p>امیدوارم سال جدید زندگیت پر از روزهایی باشه که دلت بخواد دوباره و دوباره تجربه‌شون کنی.</p>
+  <button class="btn" onclick="next(8)">گل بعدی 💕</button>
+</section>
+
+<section class="screen" id="s8">
+  <div class="progress"><i class="dot on"></i><i class="dot on"></i><i class="dot"></i><i class="dot"></i></div>
+  <img class="portrait" src="birthday-portrait.png" alt="تصویر کارتونی">
+  <h2>یه عکس خاص برای یه روز خاص 💗</h2>
+  <p></p>
+  <button class="btn" onclick="next(10)">بریم مرحله بعد 🎵</button>
+</section>
+
+<section class="screen" id="s10">
+  <div class="date">31 شهریور🎂</div>
+  <div class="card">
+    <h2>روزی که تو به دنیا اومدی</h2>
+    <p>و از اون روز، یه آدم دوست‌داشتنی دیگه به این دنیا اضافه شد. 🌙</p>
+    <p class="muted">امسال هم یه فصل تازه شروع میشه؛ امیدوارم پر از اتفاق‌های قشنگ باشه.</p>
+  </div>
+  <button class="btn" onclick="next(11)">کادوی اصلی؟ 🎁</button>
+</section>
+
+<section class="screen" id="s11">
+  <div class="gift" style="transform:scale(.9)"><div class="bow"></div><div class="lid"></div><div class="box"></div><div class="ribbon-v"></div></div>
+  <h1>خب... حالا نوبت کادوی اصلیه ❤️</h1><p>آماده‌ای بازش کنی؟</p>
+  <button class="btn" onclick="next(12);celebrate()">بازش کن ✨</button>
+</section>
+
+<section class="screen" id="s12">
+  <div class="note">
+    <h2>تولدت مبارک خواهر گلم ❤️</h2>
+    <p>
+      الینا جان،
+      <br><br>
+      شاید این یه کادوی خیلی کوچیک باشه و نتونه جای یه کادوی واقعی رو بگیره،
+      ولی دوست داشتم تولدت رو یه جور متفاوت تبریک بگم.
+      <br><br>
+      امیدوارم 31 شهریور امسال شروع یه سال خیلی خوب برات باشه؛
+      سالی پر از خنده‌های واقعی، آرامش، موفقیت و کلی اتفاقی که وقتی بهشون فکر می‌کنی،
+      ناخودآگاه لبخند بزنی.
+      <br><br>
+      خوشحالم که خواهر خوبی مثل تو دارم و امیدوارم رفاقتمون همیشه پر از
+      خاطره‌های خوب و لحظه‌های خنده‌دار باشه.
+      <br><br>
+      خلاصه که امروز روز توئه؛
+      پس فعلاً همه‌چی رو بذار کنار و فقط از تولدت لذت ببر 😄🎂
+      <br><br>
+      <strong>تولدت مبارک خواهر خوبم 🌷❤️</strong>
+      <br>
+      امیدوارم امسال، سالِ اتفاقای قشنگت باشه.
+    </p>
+  </div>
+  <button class="btn" onclick="next(13)">یه چیز دیگه مونده... 👀</button>
+</section>
+
+<section class="screen" id="s13">
+  <div style="font-size:95px">🌙✨</div>
+  <h1>و آخرش فقط اینو می‌خواستم بگم...</h1>
+  <p style="font-size:20px">امیدوارم همیشه دلیلی برای لبخند زدن داشته باشی. ❤️</p>
+  <button class="btn" onclick="location.reload()">از اول ببین 🔄</button>
+</section>
+</div>
+
+<script>
+let current=0;
+
+function next(n){
+  document.getElementById("s"+current).classList.remove("active");
+  current=n;
+  document.getElementById("s"+current).classList.add("active");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+setTimeout(function(){
+  if(current===0) next(1);
+},3500);
+
+const myAudio = document.getElementById("myAudio");
+
+function startParty(){
+  next(2);
+  partyConfetti();
+
+  // پخش آهنگ پس‌زمینه
+  myAudio.volume = 0.6;
+  myAudio.play().catch(function(){
+    console.log("پخش خودکار آهنگ ممکن نشد.");
+  });
+}
+
+function blowCandles(){
+  document.querySelectorAll(".flame").forEach(f=>f.style.display="none");
+  partyConfetti();
+  setTimeout(()=>next(3),1300);
+}
+
+function partyConfetti(){
+  const c=document.getElementById("confetti");
+  const icons=["🎉","✨","🎈","💗","❤️","🌸","⭐"];
+  for(let i=0;i<65;i++){
+    const e=document.createElement("span");
+    e.className="piece";
+    e.textContent=icons[Math.floor(Math.random()*icons.length)];
+    e.style.left=Math.random()*100+"%";
+    e.style.animationDelay=Math.random()*1.2+"s";
+    e.style.animationDuration=(2.5+Math.random()*2)+"s";
+    c.appendChild(e);
+    setTimeout(()=>e.remove(),5000);
+  }
+}
+
+function celebrate(){
+  const c=document.getElementById("confetti");
+  const icons=["❤️","💗","✨","🌸","🎀","🎉","💕"];
+  for(let i=0;i<70;i++){
+    const e=document.createElement("span");
+    e.className="piece";
+    e.textContent=icons[Math.floor(Math.random()*icons.length)];
+    e.style.left=Math.random()*100+"%";
+    e.style.animationDelay=Math.random()*1.5+"s";
+    e.style.animationDuration=(2.2+Math.random()*2)+"s";
+    c.appendChild(e);
+    setTimeout(()=>e.remove(),5000);
+  }
+}
+</script>
+</body>
+</html>
